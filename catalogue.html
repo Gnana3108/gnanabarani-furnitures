@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue – GnanaBarani Furnitures</title>
+  <meta name="description" content="Browse our complete furniture catalogue — sofas, beds, wardrobes, dining tables, doors, pooja items and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav nav--solid" id="mainNav">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <div class="nav__logo-icon"><i class="fas fa-couch"></i></div>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">GnanaBarani</span>
+          <span class="nav__logo-tagline">Furnitures</span>
+        </div>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="index.html"     class="nav__link">Home</a></li>
+        <li><a href="catalogue.html" class="nav__link">Catalogue</a></li>
+        <li><a href="about.html"     class="nav__link">About</a></li>
+        <li><a href="contact.html"   class="nav__link">Contact</a></li>
+        <li><a href="https://wa.me/919443379639?text=Hi%2C%20I'm%20interested%20in%20your%20furniture%20collection." target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp nav__cta"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav__mobile-overlay" id="mobileOverlay"></div>
+<div class="nav__mobile" id="mobileMenu">
+  <ul class="nav__mobile-links" role="list">
+    <li><a href="index.html"     class="nav__mobile-link">Home</a></li>
+    <li><a href="catalogue.html" class="nav__mobile-link">Catalogue</a></li>
+    <li><a href="about.html"     class="nav__mobile-link">About Us</a></li>
+    <li><a href="contact.html"   class="nav__mobile-link">Contact</a></li>
+    <li style="margin-top:12px"><a href="https://wa.me/919443379639?text=Hi%2C%20I'm%20interested%20in%20your%20furniture%20collection." target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp btn--full"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a></li>
+  </ul>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <h1>Our Catalogue</h1>
+    <p>Explore our complete range of handcrafted furniture — 60+ products across 12 categories.</p>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><i class="fas fa-chevron-right"></i><span>Catalogue</span>
+    </nav>
+  </div>
+</div>
+
+<!-- Main Content -->
+<section class="section">
+  <div class="container">
+
+    <!-- Topbar -->
+    <div class="catalogue-topbar">
+      <button class="filter-toggle-btn" id="filterToggleBtn" aria-label="Open filters">
+        <i class="fas fa-sliders-h"></i> Filters
+      </button>
+      <div class="catalogue-search">
+        <i class="fas fa-search"></i>
+        <input type="search" id="searchInput" placeholder="Search products…" autocomplete="off">
+      </div>
+      <select class="sort-select" id="sortSelect">
+        <option value="default">Sort: Default</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name-asc">Name: A–Z</option>
+        <option value="rating-desc">Top Rated</option>
+      </select>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
+
+    <div class="catalogue-layout">
+
+      <!-- Sidebar -->
+      <aside class="catalogue-sidebar" id="desktopSidebar">
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Category <span class="sidebar-clear" id="clearCategory">Clear</span></div>
+          <div id="categoryFilters"></div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Price Range <span class="sidebar-clear" id="clearPrice">Clear</span></div>
+          <div class="price-range-inputs">
+            <input type="number" id="priceMin" placeholder="Min" min="0">
+            <input type="number" id="priceMax" placeholder="Max" min="0">
+          </div>
+          <input type="range" id="priceSlider" min="0" max="90000" step="500" value="90000">
+          <div class="price-display" id="priceDisplay">Up to ₹90,000</div>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-title">Material <span class="sidebar-clear" id="clearMaterial">Clear</span></div>
+          <div id="materialFilters"></div>
+        </div>
+
+        <button class="btn btn--primary btn--full" id="clearAllBtn" style="margin-top:8px">
+          <i class="fas fa-times"></i> Clear All Filters
+        </button>
+      </aside>
+
+      <!-- Grid -->
+      <div>
+        <div class="catalogue-grid" id="catalogueGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile Filter Drawer -->
+<div class="filter-drawer" id="filterDrawer">
+  <div class="filter-drawer__overlay" id="drawerOverlay"></div>
+  <div class="filter-drawer__panel">
+    <div class="filter-drawer__header">
+      <h3>Filters</h3>
+      <button class="filter-drawer__close" id="drawerClose" aria-label="Close filters"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Category</div>
+      <div id="drawerCategoryFilters"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Price Range</div>
+      <input type="range" id="drawerPriceSlider" min="0" max="90000" step="500" value="90000">
+      <div class="price-display" id="drawerPriceDisplay">Up to ₹90,000</div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Material</div>
+      <div id="drawerMaterialFilters"></div>
+    </div>
+    <button class="btn btn--primary btn--full" id="drawerApplyBtn" style="margin-top:16px">Apply Filters</button>
+    <button class="btn btn--outline btn--full" id="drawerClearBtn" style="margin-top:10px">Clear All</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo">
+          <div class="nav__logo-icon"><i class="fas fa-couch"></i></div>
+          <div class="nav__logo-text">
+            <span class="nav__logo-name">GnanaBarani</span>
+            <span class="nav__logo-tagline">Furnitures</span>
+          </div>
+        </a>
+        <p>Premium quality handcrafted furniture for every home.</p>
+        <div class="footer__social">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/919443379639" target="_blank" rel="noopener" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Quick Links</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="index.html"     class="footer__link"><i class="fas fa-chevron-right"></i>Home</a></li>
+          <li><a href="catalogue.html" class="footer__link"><i class="fas fa-chevron-right"></i>Catalogue</a></li>
+          <li><a href="about.html"     class="footer__link"><i class="fas fa-chevron-right"></i>About Us</a></li>
+          <li><a href="contact.html"   class="footer__link"><i class="fas fa-chevron-right"></i>Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Categories</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="catalogue.html?category=sofa"     class="footer__link"><i class="fas fa-chevron-right"></i>Sofas &amp; Diwans</a></li>
+          <li><a href="catalogue.html?category=bed"      class="footer__link"><i class="fas fa-chevron-right"></i>Beds</a></li>
+          <li><a href="catalogue.html?category=dining"   class="footer__link"><i class="fas fa-chevron-right"></i>Dining Tables</a></li>
+          <li><a href="catalogue.html?category=wardrobe" class="footer__link"><i class="fas fa-chevron-right"></i>Wardrobes</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Contact Us</h4>
+        <div class="footer__contact-item"><i class="fas fa-phone"></i><a href="tel:+919443379639">+91 94433 79639</a></div>
+        <div class="footer__contact-item"><i class="fas fa-map-marker-alt"></i><span>No. 20 Varatharajan Layout, Viluppuram 605602</span></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2025 GnanaBarani Furnitures. All rights reserved.</span>
+      <span>Made with <i class="fas fa-heart" style="color:var(--primary)"></i> in Viluppuram</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/catalogue.js"></script>
+</body>
+</html>

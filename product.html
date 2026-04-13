@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details – GnanaBarani Furnitures</title>
+  <meta name="description" content="View product details, dimensions and enquire on WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Lightbox */
+    .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,.92); z-index:2000; align-items:center; justify-content:center; }
+    .lightbox.open { display:flex; }
+    .lightbox img  { max-width:90vw; max-height:90vh; object-fit:contain; border-radius:8px; }
+    .lightbox__close { position:absolute; top:20px; right:24px; color:#fff; font-size:1.8rem; cursor:pointer; background:none; border:none; }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav nav--solid" id="mainNav">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <div class="nav__logo-icon"><i class="fas fa-couch"></i></div>
+        <div class="nav__logo-text">
+          <span class="nav__logo-name">GnanaBarani</span>
+          <span class="nav__logo-tagline">Furnitures</span>
+        </div>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="index.html"     class="nav__link">Home</a></li>
+        <li><a href="catalogue.html" class="nav__link">Catalogue</a></li>
+        <li><a href="about.html"     class="nav__link">About</a></li>
+        <li><a href="contact.html"   class="nav__link">Contact</a></li>
+        <li><a href="https://wa.me/919443379639?text=Hi%2C%20I'm%20interested%20in%20your%20furniture%20collection." target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp nav__cta"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav__mobile-overlay" id="mobileOverlay"></div>
+<div class="nav__mobile" id="mobileMenu">
+  <ul class="nav__mobile-links" role="list">
+    <li><a href="index.html"     class="nav__mobile-link">Home</a></li>
+    <li><a href="catalogue.html" class="nav__mobile-link">Catalogue</a></li>
+    <li><a href="about.html"     class="nav__mobile-link">About Us</a></li>
+    <li><a href="contact.html"   class="nav__mobile-link">Contact</a></li>
+    <li style="margin-top:12px"><a href="https://wa.me/919443379639?text=Hi%2C%20I'm%20interested%20in%20your%20furniture%20collection." target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp btn--full"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a></li>
+  </ul>
+</div>
+
+<!-- Breadcrumb -->
+<div style="background:var(--bg-2);padding:12px 0;margin-top:var(--nav-h)">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb" style="justify-content:flex-start">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="catalogue.html">Catalogue</a>
+      <i class="fas fa-chevron-right"></i>
+      <span id="breadcrumbName">Product</span>
+    </nav>
+  </div>
+</div>
+
+<!-- Product Detail -->
+<div class="product-detail" id="productDetail">
+  <div class="container">
+    <div class="product-detail__grid">
+
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="gallery-main" id="galleryMain">
+          <img id="mainImage" src="" alt="Product image">
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="product-info">
+        <span class="category-badge" id="categoryBadge"></span>
+        <h1 id="productName"></h1>
+        <div class="product-info__meta">
+          <div class="product-info__price" id="productPrice"></div>
+          <div class="product-info__rating">
+            <div class="stars" id="productStars"></div>
+            <span id="productRating"></span>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="product-tabs">
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="description">Description</button>
+            <button class="tab-btn" data-tab="dimensions">Dimensions</button>
+            <button class="tab-btn" data-tab="warranty">Material &amp; Warranty</button>
+          </div>
+          <div class="tab-content active" id="tab-description">
+            <p id="productDescription"></p>
+          </div>
+          <div class="tab-content" id="tab-dimensions">
+            <table class="spec-table">
+              <tr><td>Dimensions</td><td id="productDimensions"></td></tr>
+              <tr><td>Material</td><td id="productMaterial1"></td></tr>
+              <tr><td>Category</td><td id="productCategory"></td></tr>
+            </table>
+          </div>
+          <div class="tab-content" id="tab-warranty">
+            <table class="spec-table">
+              <tr><td>Material</td><td id="productMaterial2"></td></tr>
+              <tr><td>Warranty</td><td id="productWarranty"></td></tr>
+              <tr><td>Finish</td><td>Premium Hand Polish</td></tr>
+              <tr><td>Crafted in</td><td>Viluppuram, Tamil Nadu</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="product-actions">
+          <a id="waBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp btn--full btn--lg">
+            <i class="fab fa-whatsapp"></i> Enquire on WhatsApp
+          </a>
+          <a href="tel:+919443379639" class="btn btn--outline btn--full">
+            <i class="fas fa-phone"></i> Call: +91 94433 79639
+          </a>
+          <a href="catalogue.html" class="btn btn--secondary btn--full">
+            <i class="fas fa-th-large"></i> Back to Catalogue
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Not Found State (hidden by default) -->
+<div id="notFoundState" style="display:none;text-align:center;padding:100px 20px">
+  <i class="fas fa-exclamation-circle" style="font-size:3rem;color:var(--text-muted);display:block;margin-bottom:16px"></i>
+  <h2 style="font-family:var(--font-head);color:var(--accent);margin-bottom:10px">Product Not Found</h2>
+  <p style="color:var(--text-light);margin-bottom:24px">The product you're looking for doesn't exist or may have been removed.</p>
+  <a href="catalogue.html" class="btn btn--primary btn--lg"><i class="fas fa-th-large"></i> Browse Catalogue</a>
+</div>
+
+<!-- Related Products -->
+<section class="related-products" id="relatedSection" style="display:none">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">You May Also Like</span>
+      <h2>Related Products</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="products-grid" id="relatedGrid"></div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close"><i class="fas fa-times"></i></button>
+  <img id="lightboxImg" src="" alt="Product image enlarged">
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo">
+          <div class="nav__logo-icon"><i class="fas fa-couch"></i></div>
+          <div class="nav__logo-text">
+            <span class="nav__logo-name">GnanaBarani</span>
+            <span class="nav__logo-tagline">Furnitures</span>
+          </div>
+        </a>
+        <p>Premium quality handcrafted furniture for every home.</p>
+        <div class="footer__social">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/919443379639" target="_blank" rel="noopener" class="social-icon" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Quick Links</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="index.html"     class="footer__link"><i class="fas fa-chevron-right"></i>Home</a></li>
+          <li><a href="catalogue.html" class="footer__link"><i class="fas fa-chevron-right"></i>Catalogue</a></li>
+          <li><a href="about.html"     class="footer__link"><i class="fas fa-chevron-right"></i>About Us</a></li>
+          <li><a href="contact.html"   class="footer__link"><i class="fas fa-chevron-right"></i>Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Categories</h4>
+        <ul class="footer__links" role="list">
+          <li><a href="catalogue.html?category=sofa"     class="footer__link"><i class="fas fa-chevron-right"></i>Sofas &amp; Diwans</a></li>
+          <li><a href="catalogue.html?category=bed"      class="footer__link"><i class="fas fa-chevron-right"></i>Beds</a></li>
+          <li><a href="catalogue.html?category=wardrobe" class="footer__link"><i class="fas fa-chevron-right"></i>Wardrobes</a></li>
+          <li><a href="catalogue.html?category=pooja"    class="footer__link"><i class="fas fa-chevron-right"></i>Pooja Items</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__col-title">Contact Us</h4>
+        <div class="footer__contact-item"><i class="fas fa-phone"></i><a href="tel:+919443379639">+91 94433 79639</a></div>
+        <div class="footer__contact-item"><i class="fas fa-map-marker-alt"></i><span>No. 20 Varatharajan Layout, Viluppuram 605602</span></div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2025 GnanaBarani Furnitures. All rights reserved.</span>
+      <span>Made with <i class="fas fa-heart" style="color:var(--primary)"></i> in Viluppuram</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/product.js"></script>
+</body>
+</html>
