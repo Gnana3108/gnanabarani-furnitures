@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null,
-  "rewrites": [
-    { "source": "/catalogue", "destination": "/catalogue.html" },
-    { "source": "/product",   "destination": "/product.html" },
-    { "source": "/about",     "destination": "/about.html" },
-    { "source": "/contact",   "destination": "/contact.html" }
+  "builds": [
+    { "src": "**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/catalogue", "dest": "/catalogue.html" },
+    { "src": "/product", "dest": "/product.html" },
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/contact", "dest": "/contact.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
