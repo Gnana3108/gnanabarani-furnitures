@@ -37,9 +37,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img { max-width: 100%; display: block; }
-a  { color: inherit; text-decoration: none; }
+a  { color: inherit; text-decoration: none; touch-action: manipulation; }
 ul { list-style: none; }
-button { cursor: pointer; font-family: inherit; border: none; background: none; }
+button { cursor: pointer; font-family: inherit; border: none; background: none; touch-action: manipulation; }
+
+/* Remove 300ms tap delay on all interactive elements */
+a, button, input, select, textarea, label, [role="button"] {
+  touch-action: manipulation;
+}
+/* Ensure tap targets are at least 44px (Apple/Google guideline) */
+.btn, .nav__link, .nav__mobile-link, .category-card, .footer__link,
+.tab-btn, .filter-option, .gallery-thumb, .sort-select, .sidebar-clear {
+  min-height: 44px;
+}
+.category-card, .gallery-thumb, .filter-option { cursor: pointer; }
 
 /* ── 3. Utility ───────────────────────────────────────────── */
 .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
@@ -94,7 +105,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   background: var(--primary); color: var(--white);
   box-shadow: 0 4px 16px rgba(139,94,60,.35);
 }
-.btn--primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,94,60,.45); }
+/* hover only on pointer devices — prevents double-tap on mobile */
+.btn--primary:hover { background: var(--primary-dark); }
 .btn--outline {
   border: 2px solid var(--primary); color: var(--primary);
 }
@@ -198,13 +210,15 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 }
 .nav__mobile.open { transform: translateX(0); }
 .nav__mobile-overlay {
-  display: none;
+  display: block;
   position: fixed; inset: 0;
   background: rgba(0,0,0,.5);
   z-index: 998;
-  opacity: 0; transition: opacity .35s;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s;
 }
-.nav__mobile-overlay.open { opacity: 1; }
+.nav__mobile-overlay.open { opacity: 1; pointer-events: auto; }
 .nav__mobile-links { display: flex; flex-direction: column; gap: 4px; }
 .nav__mobile-link {
   display: block; padding: 12px 16px;
@@ -807,7 +821,7 @@ input[type="range"] {
   .nav__links { display: none; }
   .nav__hamburger { display: flex; }
   .nav__mobile { display: block; }
-  .nav__mobile-overlay { display: block; }
+  /* overlay handled via pointer-events, not display */
   .categories-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .catalogue-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -822,4 +836,39 @@ input[type="range"] {
   .catalogue-grid { grid-template-columns: 1fr; }
   .category-card { padding: 18px 12px; }
   .cta-banner__actions { flex-direction: column; align-items: center; }
+}
+
+/* ── 19. Touch Device Fixes ───────────────────────────────── */
+/* Only apply hover/transform effects on real pointer devices.
+   On mobile, :hover gets "stuck" on first tap and blocks the second tap click. */
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover  { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,94,60,.45); }
+  .btn--secondary:hover{ transform: translateY(-2px); }
+  .btn--whatsapp:hover { transform: translateY(-2px); }
+  .btn--outline:hover  { background: var(--primary); color: var(--white); }
+  .nav__link:hover, .nav__link.active { background: rgba(255,255,255,.1); }
+  .nav__hamburger:hover { background: rgba(255,255,255,.1); }
+  .nav__mobile-link:hover { background: rgba(255,255,255,.1); }
+  .category-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+  .category-card:hover .category-card__icon { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--white); }
+  .product-card:hover  { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: transparent; }
+  .product-card:hover .product-card__img img { transform: scale(1.06); }
+  .trust-card:hover    { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+  .value-card:hover    { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: var(--primary); }
+  .contact-card:hover  { box-shadow: var(--shadow-md); border-color: var(--primary); }
+  .social-icon:hover   { background: var(--primary); color: var(--white); border-color: var(--primary); }
+  .footer__link:hover  { color: var(--white); padding-left: 4px; }
+  .gallery-thumb:hover { border-color: var(--primary); }
+  .whatsapp-float:hover{ background: #1da851; transform: scale(1.12); animation: none; }
+  .sidebar-clear:hover { text-decoration: underline; }
+}
+
+/* Active state feedback for touch (replaces hover visual) */
+@media (hover: none) {
+  .btn:active          { opacity: .8; transform: scale(.97); }
+  .category-card:active{ opacity: .85; }
+  .product-card:active { opacity: .9; }
+  .nav__mobile-link:active { background: rgba(255,255,255,.15); }
+  .gallery-thumb:active{ border-color: var(--primary); }
+  .social-icon:active  { background: var(--primary); color: var(--white); }
 }

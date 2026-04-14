@@ -64,10 +64,25 @@ function getCategoryLabel(id) {
     document.body.style.overflow = '';
   }
 
-  hamburger && hamburger.addEventListener('click', () => {
+  // Use both click and touchend for instant mobile response
+  function addTap(el, fn) {
+    if (!el) return;
+    el.addEventListener('click', fn);
+    el.addEventListener('touchend', function(e) {
+      e.preventDefault(); // prevent ghost click delay
+      fn();
+    }, { passive: false });
+  }
+
+  addTap(hamburger, () => {
     hamburger.classList.contains('open') ? closeMenu() : openMenu();
   });
-  overlay && overlay.addEventListener('click', closeMenu);
+  addTap(overlay, closeMenu);
+
+  // Also close menu when a mobile nav link is tapped
+  document.querySelectorAll('.nav__mobile-link').forEach(link => {
+    link.addEventListener('touchend', () => closeMenu(), { passive: true });
+  });
 
   // Close on resize
   window.addEventListener('resize', () => { if (window.innerWidth > 768) closeMenu(); });
